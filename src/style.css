@@ -1,0 +1,106 @@
+body,
+html,
+#app,
+.base {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+.ene-shimeji {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(attr(data-x)) translateY(attr(data-y));
+}
+
+/* discord */
+#app {
+    background: #202225;
+    display: flex;
+}
+#app nav {
+    width: 72px;
+    height: 100%;
+}
+#app .base {
+    flex-grow: 1;
+}
+.content {
+    display: flex;
+    height: 100%;
+}
+
+.base .sidebar {
+    background: #2f3136;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+}
+.base .chat {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background: #36393f;
+}
+
+.sidebar nav {
+    flex-grow: 1;
+}
+.sidebar section.panel {
+    height: 53px;
+    background: #292b2f;
+}
+
+.chat section {
+    width: 100%;
+    height: 48px;
+    border-bottom: 2px solid #2f3136;
+    cursor: pointer;
+}
+.chat .content {
+    flex-grow: 1;
+}
+
+.content main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+aside {
+    width: 240px;
+    height: 100%;
+    background: #2f3136;
+}
+aside.hidden {
+    display: none;
+}
+
+main .messageWrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+main form {
+    height: 68px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+form > div {
+    height: 44px;
+    border-radius: 8px;
+    background-color: #40444b;
+}
