@@ -23,7 +23,6 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateX(attr(data-x)) translateY(attr(data-y));
 }
 
 /* discord */

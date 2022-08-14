@@ -11,11 +11,19 @@ import "./style.css";
 
 const Main: Iplugin = {
     start() {
-        console.log("start");
+        console.info(
+            "%c[discord-shimejis]",
+            "font-weight: bold",
+            "Plugin started."
+        );
         new Mascot().start();
     },
     stop() {
-        console.log("stop");
+        console.info(
+            "%c[discord-shimejis]",
+            "font-weight: bold",
+            "Plugin unloaded."
+        );
     },
 };
 

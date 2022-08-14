@@ -1,4 +1,4 @@
-import { Point } from "../commonTypes/environment";
+import { Point } from "../environment/shapeInterfaces";
 import { ImageLoader } from "../images/ImageLoader";
 
 export class Canvas {
@@ -7,10 +7,11 @@ export class Canvas {
     images!: ImageLoader;
     position: Point = { x: 0, y: 0 };
 
-    static async newInstance(images: ImageLoader) {
+    static async newInstance(images: ImageLoader, app: HTMLElement) {
         const instance = new Canvas(128, 128);
         instance.images = images;
         await instance.images.load();
+        app.appendChild(instance.canvas);
         instance.initContext();
         return instance;
     }
@@ -23,11 +24,6 @@ export class Canvas {
         this.updatePosition();
     }
     private initContext() {
-        const app = document.getElementById("app");
-        if (!app) {
-            throw new Error("app element not found");
-        }
-        app.appendChild(this.canvas);
         const ctx = this.canvas.getContext("2d");
         if (!ctx) {
             throw new Error("canvas context not found");
@@ -40,8 +36,13 @@ export class Canvas {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.drawImage(img, 0, 0);
     }
-    updatePosition() {
-        this.canvas.dataset.left = String(this.position.x);
-        this.canvas.dataset.top = String(this.position.y);
+    updatePosition(x = 0, y = 0) {
+        this.position.x = x;
+        this.position.y = y;
+        this.flushPosition();
+    }
+    flushPosition() {
+        const { x, y } = this.position;
+        this.canvas.style.transform = `translate(${x}px, ${y}px)`;
     }
 }
