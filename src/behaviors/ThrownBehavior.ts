@@ -1,11 +1,13 @@
 import { Ianimation } from "../animation/Animation_Defs";
+import { IdleClimbHoriz } from "../animation/ClimbHoriz";
 import { ThrownFallNormal } from "../animation/ThrownFall";
 import { ThrownFlyNormal } from "../animation/ThrownFly";
+import { CollisionStatus } from "../environment/environment";
 import { Point } from "../environment/shapeInterfaces";
 import { Mascot } from "../mascot/Mascot";
 import { GrabbedBehavior } from "./GrabbedBehavior";
 import { Ibehavior } from "./Ibehavior";
-import { IdleBehavior, IdleCausedBy, IdleDirection } from "./IdleBehavior";
+import { IdleBehavior } from "./IdleBehavior";
 
 export class ThrownBehavior implements Ibehavior {
     name = "thrown";
@@ -55,34 +57,29 @@ export class ThrownBehavior implements Ibehavior {
         position.y = position.y + this.velocity.y * dt;
         position.x = position.x + this.velocity.x * dt;
 
-        if (this.shouldStop(position)) {
-            this.onStop();
-        } else {
+        const { status, newPosition } =
+            this.mascot.environment.getCollisionStatus(position);
+
+        if (status === CollisionStatus.None) {
             this.mascot.flushPosition();
             this.requestID = window.requestAnimationFrame(
                 this.update.bind(this)
             );
+            return;
         }
+        position.x = newPosition.x;
+        position.y = newPosition.y;
+        if (status === CollisionStatus.Wall) {
+            this.currentAnimation.next = new IdleClimbHoriz(
+                this.velocity.x > 0
+            );
+        }
+        this.onStop();
     }
 
-    shouldStop(position: Point) {
-        const maxYpos =
-            this.mascot.environment.screenRects.bottom -
-            this.mascot.canvas.canvas.height;
-        const maxXpos =
-            this.mascot.environment.screenRects.right -
-            this.mascot.canvas.canvas.width;
-        return position.y > maxYpos || position.x > maxXpos || position.x <= 0;
-    }
     onStop() {
-        const source =
-            this.velocity.y > 500
-                ? IdleCausedBy.FallHard
-                : IdleCausedBy.FallSoft;
-        const direction =
-            this.velocity.x > 0 ? IdleDirection.Right : IdleDirection.Left;
         this.mascot.flushPosition();
-        this.mascot.setBehavior(new IdleBehavior({ source, direction }));
+        this.mascot.setBehavior(new IdleBehavior());
         this.mascot.setAnimation(this.currentAnimation.next!);
     }
 

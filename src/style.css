@@ -25,6 +25,12 @@ body {
     left: 0;
 }
 
+html,
+#app {
+    /* important */
+    overflow: hidden;
+}
+
 /* discord */
 #app {
     background: #202225;

@@ -15,11 +15,11 @@ export class Mascot implements Iplugin {
 
     async start() {
         this.initContainer();
-        this.environment.init(this);
         this.canvas = await Canvas.newInstance(
             new ImageLoader(),
             this.container
         );
+        this.environment.init(this);
         this.initMascotPosition();
     }
     stop() {}
@@ -66,10 +66,13 @@ export class Mascot implements Iplugin {
     flushPosition() {
         const { top, left, right, bottom } = this.environment.screenRects;
         const intialPos = { ...this.canvas.position };
-        if (this.canvas.position.x < left) {
-            this.canvas.position.x = left;
-        } else if (this.canvas.position.x + this.canvas.canvas.width > right) {
-            this.canvas.position.x = right - this.canvas.canvas.width;
+        if (this.canvas.position.x < left - this.canvas.canvas.width * 0.5) {
+            this.canvas.position.x = left - this.canvas.canvas.width * 0.5;
+        } else if (
+            this.canvas.position.x >
+            right - this.canvas.canvas.width * 0.5
+        ) {
+            this.canvas.position.x = right - this.canvas.canvas.width * 0.5;
         }
         if (this.canvas.position.y < top) {
             this.canvas.position.y = top;

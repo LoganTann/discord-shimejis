@@ -1,5 +1,6 @@
+import { ThrownBehavior } from "../behaviors/ThrownBehavior";
 import { Mascot } from "../mascot/Mascot";
-import { Rect, Rectangle } from "./shapeInterfaces";
+import { Point, Rect, Rectangle } from "./shapeInterfaces";
 
 export class Environment {
     mascot!: Mascot;
@@ -35,4 +36,32 @@ export class Environment {
             this.screenRects
         );
     }
+
+    getCollisionStatus(position: Point) {
+        const maxYpos =
+            this.mascot.environment.screenRects.bottom -
+            this.mascot.canvas.canvas.height;
+        const maxXpos =
+            this.mascot.environment.screenRects.right -
+            this.mascot.canvas.canvas.width;
+        const originOffsetX = this.mascot.canvas.canvas.width / 2;
+
+        let status: CollisionStatus = CollisionStatus.None;
+        let newPosition = { ...position };
+        if (
+            position.x - originOffsetX > maxXpos ||
+            position.x + originOffsetX <= 0
+        ) {
+            status = CollisionStatus.Wall;
+        } else if (position.y > maxYpos) {
+            status = CollisionStatus.Floor;
+        }
+        return { status, newPosition };
+    }
+}
+export enum CollisionStatus {
+    None,
+    Wall,
+    Floor,
+    Chat,
 }

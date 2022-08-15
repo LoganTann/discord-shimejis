@@ -5,7 +5,6 @@ import { Ibehavior } from "./Ibehavior";
 export enum IdleCausedBy {
     FallHard,
     FallSoft,
-    CollideWall,
 }
 export enum IdleDirection {
     Left,
@@ -21,7 +20,7 @@ export class IdleBehavior implements Ibehavior {
     mascot!: Mascot;
     listener!: (e: PointerEvent) => void;
 
-    constructor(private args: IdleBehaviorArguments = {}) {}
+    constructor() {}
 
     init(mascot: Mascot): void {
         this.mascot = mascot;
@@ -30,14 +29,6 @@ export class IdleBehavior implements Ibehavior {
             "pointerdown",
             this.listener
         );
-
-        if (this.args.source === IdleCausedBy.FallHard) {
-            this.mascot.canvas.setFrame("shime19.png");
-        } else if (this.args.source === IdleCausedBy.FallSoft) {
-            this.mascot.canvas.setFrame("shime45.png");
-        } else {
-            this.mascot.canvas.setFrame("shime1.png");
-        }
     }
     destroy(): void {
         this.mascot.canvas.canvas.removeEventListener(
