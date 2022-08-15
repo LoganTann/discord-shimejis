@@ -13,22 +13,19 @@ export class GrabbedBehavior implements Ibehavior {
         this.lastPosition = lastPosition;
     }
 
+    listener!: (e: PointerEvent) => void;
+
     init(mascot: Mascot): void {
         this.mascot = mascot;
-        this.mascot.container.addEventListener(
-            "pointermove",
-            this.handlePointerMove.bind(this)
-        );
+        this.listener = this.handlePointerMove.bind(this);
+        this.mascot.container.addEventListener("pointermove", this.listener);
         this.clickOffset = {
             x: this.lastPosition.x - this.mascot.canvas.position.x,
             y: this.lastPosition.y - this.mascot.canvas.position.y,
         };
     }
     destroy(): void {
-        this.mascot.container.removeEventListener(
-            "pointerdown",
-            this.handlePointerMove.bind(this)
-        );
+        this.mascot.container.removeEventListener("pointermove", this.listener);
     }
 
     handlePointerMove(e: PointerEvent) {

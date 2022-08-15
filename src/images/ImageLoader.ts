@@ -65,6 +65,9 @@ export class ImageLoader {
     }
 
     get(frame: string) {
+        if (!this.image[frame]) {
+            throw new Error(`image not found: ${frame}`);
+        }
         return this.image[frame];
     }
 }

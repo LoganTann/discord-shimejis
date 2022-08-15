@@ -2,21 +2,47 @@ import { Mascot } from "../mascot/Mascot";
 import { GrabbedBehavior } from "./GrabbedBehavior";
 import { Ibehavior } from "./Ibehavior";
 
+export enum IdleCausedBy {
+    FallHard,
+    FallSoft,
+    CollideWall,
+}
+export enum IdleDirection {
+    Left,
+    Right,
+}
+export interface IdleBehaviorArguments {
+    source?: IdleCausedBy;
+    direction?: IdleDirection;
+}
+
 export class IdleBehavior implements Ibehavior {
     name = "idle";
     mascot!: Mascot;
+    listener!: (e: PointerEvent) => void;
+
+    constructor(private args: IdleBehaviorArguments = {}) {}
 
     init(mascot: Mascot): void {
         this.mascot = mascot;
+        this.listener = this.handlePointerDown.bind(this);
         this.mascot.canvas.canvas.addEventListener(
             "pointerdown",
-            this.handlePointerDown.bind(this)
+            this.listener
         );
+
+        if (this.args.source === IdleCausedBy.FallHard) {
+            this.mascot.canvas.setFrame("shime19.png");
+        } else if (this.args.source === IdleCausedBy.FallSoft) {
+            this.mascot.canvas.setFrame("shime45.png");
+        } else {
+            this.mascot.canvas.setFrame("shime1.png");
+        }
     }
     destroy(): void {
         this.mascot.canvas.canvas.removeEventListener(
             "pointerdown",
-            this.handlePointerDown.bind(this)
+            this.listener
         );
     }
 

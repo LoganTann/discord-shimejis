@@ -7,6 +7,8 @@ export class Canvas {
     images!: ImageLoader;
     position: Point = { x: 0, y: 0 };
 
+    public reversed: boolean = false;
+
     static async newInstance(images: ImageLoader, app: HTMLElement) {
         const instance = new Canvas(128, 128);
         instance.images = images;
@@ -43,6 +45,10 @@ export class Canvas {
     }
     flushPosition() {
         const { x, y } = this.position;
-        this.canvas.style.transform = `translate(${x}px, ${y}px)`;
+        let transformStyle = `translate(${x}px, ${y}px)`;
+        if (this.reversed) {
+            transformStyle += " scaleX(-1)";
+        }
+        this.canvas.style.transform = transformStyle;
     }
 }
