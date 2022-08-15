@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Discord shimejis - Fake window</title>
+      <script type="module" crossorigin src="/assets/index.b208fe20.js"></script>
+      <link rel="stylesheet" href="/assets/index.dcbf03a2.css">
+    </head>
+    <body>
+        <div id="app" class="container">
+            <nav class="wrapper"></nav>
+            <div class="base">
+                <div class="content">
+                    <div class="sidebar">
+                        <nav></nav>
+                        <section class="panel"></section>
+                    </div>
+                    <div class="chat">
+                        <div class="uploadArea"></div>
+                        <section class="title"></section>
+                        <div class="content">
+                            <main class="chatContent">
+                                <div class="messageWrapper"></div>
+                                <form action="" class="form">
+                                    <div></div>
+                                </form>
+                            </main>
+                            <div class="container">
+                                <aside class="memberWrap"></aside>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Shimeji will be inserted here -->
+        </div>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document
+                    .querySelector("section.title")
+                    .addEventListener("click", () => {
+                        document
+                            .querySelector("aside")
+                            .classList.toggle("hidden");
+                    });
+            });
+        </script>
+    </body>
+</html>
