@@ -1,5 +1,7 @@
 import { Mascot } from "../mascot/Mascot";
 
+export const globalMainIdleWaitingTime = 5000;
+
 export interface Ianimation {
     name: string;
     init(mascot: Mascot): void;

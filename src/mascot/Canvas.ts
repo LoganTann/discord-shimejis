@@ -6,6 +6,7 @@ export class Canvas {
     ctx!: CanvasRenderingContext2D;
     images!: ImageLoader;
     position: Point = { x: 0, y: 0 };
+    translateOffset: Point = { x: 0, y: 0 };
 
     public reversed: boolean = false;
 
@@ -45,7 +46,9 @@ export class Canvas {
     }
     flushPosition() {
         const { x, y } = this.position;
-        let transformStyle = `translate(${x}px, ${y}px)`;
+        let transformStyle = `translate(${x + this.translateOffset.x}px, ${
+            y + this.translateOffset.y
+        }px)`;
         if (this.reversed) {
             transformStyle += " scaleX(-1)";
         }
