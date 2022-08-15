@@ -1,4 +1,3 @@
-import { ThrownBehavior } from "../behaviors/ThrownBehavior";
 import { Mascot } from "../mascot/Mascot";
 import { Point, Rect, Rectangle } from "./shapeInterfaces";
 
