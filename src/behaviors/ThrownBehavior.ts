@@ -1,3 +1,6 @@
+import { Ianimation } from "../animation/Animation_Defs";
+import { ThrownFallNormal } from "../animation/ThrownFall";
+import { ThrownFlyNormal } from "../animation/ThrownFly";
 import { Point } from "../environment/shapeInterfaces";
 import { Mascot } from "../mascot/Mascot";
 import { GrabbedBehavior } from "./GrabbedBehavior";
@@ -14,6 +17,8 @@ export class ThrownBehavior implements Ibehavior {
 
     velocity: Point;
     acceleration_y: number;
+
+    currentAnimation!: Ianimation;
 
     constructor(delta: Point) {
         delta.x = surround(delta.x, -50, 50) * 10;
@@ -33,10 +38,11 @@ export class ThrownBehavior implements Ibehavior {
             this.listener
         );
         if (this.velocity.x === 0) {
-            this.mascot.canvas.setFrame("shime4.png");
+            this.currentAnimation = new ThrownFallNormal();
         } else {
-            this.mascot.canvas.setFrame("shime22.png");
+            this.currentAnimation = new ThrownFlyNormal(this.velocity.x > 0);
         }
+        this.mascot.setAnimation(this.currentAnimation);
         this.requestID = window.requestAnimationFrame(this.update.bind(this));
     }
 
@@ -77,6 +83,7 @@ export class ThrownBehavior implements Ibehavior {
             this.velocity.x > 0 ? IdleDirection.Right : IdleDirection.Left;
         this.mascot.flushPosition();
         this.mascot.setBehavior(new IdleBehavior({ source, direction }));
+        this.mascot.setAnimation(this.currentAnimation.next!);
     }
 
     destroy(): void {

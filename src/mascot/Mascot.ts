@@ -1,4 +1,4 @@
-import { Ianimation } from "../animation/Ianimation";
+import { Ianimation } from "../animation/Animation_Defs";
 import { Ibehavior } from "../behaviors/Ibehavior";
 import { ThrownBehavior } from "../behaviors/ThrownBehavior";
 import { Environment } from "../environment/environment";

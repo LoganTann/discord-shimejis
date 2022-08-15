@@ -1,12 +1,12 @@
-import { Ibehavior } from "../behaviors/Ibehavior";
 import { Mascot } from "../mascot/Mascot";
-import { Ianimation } from "./Ianimation";
+import { Ianimation } from "./Animation_Defs";
 
 export class IdleNormal implements Ianimation {
     name = "idle normal";
     mascot!: Mascot;
     next?: Ianimation;
-    behavior!: Ibehavior;
+
+    constructor(public isRight = false) {}
 
     init(mascot: Mascot): void {
         this.mascot = mascot;
