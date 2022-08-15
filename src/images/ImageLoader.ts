@@ -46,6 +46,7 @@ const frames = [
     "shime44.png",
     "shime45.png",
     "shime46.png",
+    "enepoisson.png",
 ];
 
 export class ImageLoader {

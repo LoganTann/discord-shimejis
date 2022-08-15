@@ -20,7 +20,6 @@ const Main: Iplugin = {
 };
 
 // DOM only
-
 document.addEventListener("DOMContentLoaded", () => {
     Main.start();
 });

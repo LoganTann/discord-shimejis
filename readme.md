@@ -4,9 +4,17 @@
 
 Betterdiscord plugin that adds a desktop pet in your discord client.
 
-**Work in Progress** : Don't expect to see it working. Even on a faked discord window, we can only drag the pet but nothing more.
+**Work in Progress** : Basic idle animations + Throw and Grab behaviors are implemented.
 
-## Run the project (in a fake discord window)
+**To Do** :  
+* Create a bundle and adapt the code to make it work with the real discord client
+* Create moving behaviors (actually, the mascot will just jump randomly)
+
+## Try it (in a fake discord window)
+
+https://logantann.github.io/discord-shimejis/
+
+## Develop / Build the project (in a fake discord window)
 
 Actually, creating a discord plugin needs the source code to be bundled to a specific format. Therefore, in order to develop the plugin faster, it was made only to work on that fake window. I will adapt the code and create a bundle once I make enough progress.
 
@@ -17,7 +25,7 @@ Actually, creating a discord plugin needs the source code to be bundled to a spe
 
 ## Other files
 
-I also created a webpage to preview the sprites here : `img/index.html`
+I also created a webpage to preview the sprites here : https://logantann.github.io/discord-shimejis/img/index.html
 
 There is a draw.io chart that shows the expected behaviors and their relations in the file `states.drawio`. Screenshot here : https://twitter.com/kagescan/status/1558882099846848514/photo/1
 

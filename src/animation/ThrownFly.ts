@@ -7,13 +7,17 @@ export class ThrownFlyNormal implements Ianimation {
     mascot!: Mascot;
     next?: Ianimation;
 
+    static poissonMode = false;
+
     constructor(public isRight = false) {}
 
     init(mascot: Mascot): void {
         this.mascot = mascot;
         this.generateNext();
         this.mascot.canvas.reversed = this.isRight;
-        this.mascot.canvas.setFrame("shime22.png");
+        this.mascot.canvas.setFrame(
+            ThrownFlyNormal.poissonMode ? "enepoisson.png" : "shime22.png"
+        );
     }
     destroy(): void {}
     generateNext(): void {

@@ -15,23 +15,38 @@ export class IdleNormal implements Ianimation {
 
     constructor(public isRight = false) {}
 
+    static jumpProbability = 0.8;
+
     init(mascot: Mascot): void {
         this.mascot = mascot;
-        this.generateNext();
         this.mascot.canvas.setFrame("shime1.png");
+        this.generateNext();
     }
     destroy(): void {
         clearTimeout(this.requestId);
     }
     generateNext(): void {
+        if (Math.random() > IdleNormal.jumpProbability) {
+            this.mascot.canvas.position.y -= 20;
+            this.mascot.canvas.flushPosition();
+            this.mascot.setBehavior(
+                new ThrownBehavior({
+                    x: Math.random() > 0.5 ? -30 : 30,
+                    y: -20,
+                })
+            );
+            return;
+        }
         this.next = this.getNextStandupAnim();
 
         this.requestId = setTimeout(() => {
-            this.mascot.setAnimation(this.next!);
+            if (this.next) {
+                this.mascot.setAnimation(this.next);
+            }
         }, 1000);
     }
 
-    getNextStandupAnim(): Ianimation {
+    getNextStandupAnim(): Ianimation | undefined {
         const standupAnims: Ianimation[] = [
             new IdleSmug(),
             new IdlePoint(),
@@ -40,16 +55,6 @@ export class IdleNormal implements Ianimation {
         ];
         if (Math.random() > 0.75) {
             return new IdleSits();
-        }
-        if (Math.random() > 0.6) {
-            this.mascot.canvas.position.y -= 20;
-            this.mascot.canvas.flushPosition();
-            this.mascot.setBehavior(
-                new ThrownBehavior({
-                    x: Math.random() > 0.5 ? -20 : 20,
-                    y: -20,
-                })
-            );
         }
         return standupAnims[Math.floor(Math.random() * standupAnims.length)];
     }

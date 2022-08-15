@@ -1,4 +1,6 @@
 import { Ianimation } from "../animation/Animation_Defs";
+import { IdleNormal } from "../animation/IdleNormal";
+import { ThrownFlyNormal } from "../animation/ThrownFly";
 import { Ibehavior } from "../behaviors/Ibehavior";
 import { ThrownBehavior } from "../behaviors/ThrownBehavior";
 import { Environment } from "../environment/environment";
@@ -21,6 +23,7 @@ export class Mascot implements Iplugin {
         );
         this.environment.init(this);
         this.initMascotPosition();
+        (window as any).poisson = this.poissonMode.bind(this);
     }
     stop() {}
 
@@ -87,5 +90,11 @@ export class Mascot implements Iplugin {
             intialPos.x === this.canvas.position.x &&
             intialPos.y === this.canvas.position.y
         );
+    }
+
+    poissonMode() {
+        IdleNormal.jumpProbability = 0;
+        ThrownFlyNormal.poissonMode = true;
+        this.setBehavior(new ThrownBehavior({ x: 0, y: 0 }));
     }
 }
