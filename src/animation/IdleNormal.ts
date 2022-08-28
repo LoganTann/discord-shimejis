@@ -39,7 +39,7 @@ export class IdleNormal implements Ianimation {
         }
         this.next = this.getNextStandupAnim();
 
-        this.requestId = setTimeout(() => {
+        this.requestId = window.setTimeout(() => {
             if (this.next) {
                 this.mascot.setAnimation(this.next);
             }

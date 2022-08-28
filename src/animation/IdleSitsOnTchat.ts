@@ -15,7 +15,7 @@ export class IdleSitsOnTchat extends SingleAnimationAbstract {
         super.init(mascot);
         this.mascot.canvas.translateOffset.y = 14;
         this.mascot.canvas.flushPosition();
-        this.secondFrame = setTimeout(() => {
+        this.secondFrame = window.setTimeout(() => {
             this.mascot.canvas.setFrame("shime31.png");
         }, 1000);
     }
@@ -28,7 +28,7 @@ export class IdleSitsOnTchat extends SingleAnimationAbstract {
     }
     generateNext(): void {
         this.next = this.getNextAnim();
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, globalMainIdleWaitingTime);
     }
@@ -55,7 +55,7 @@ export class IdleSitsTchatAndMoveLegs extends SingleAnimationAbstract {
         this.mascot.canvas.flushPosition();
         const frames = "31 32 31 33".split(" ");
         let i = 0;
-        this.intervalID = setInterval(() => {
+        this.intervalID = window.setInterval(() => {
             if (!this.destroyed) {
                 this.mascot.canvas.setFrame(`shime${frames[i]}.png`);
                 i = (i + 1) % frames.length;
@@ -71,7 +71,7 @@ export class IdleSitsTchatAndMoveLegs extends SingleAnimationAbstract {
     }
     generateNext(): void {
         this.next = this.getNextAnim();
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, 15000);
     }

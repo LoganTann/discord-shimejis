@@ -7,7 +7,7 @@ export class IdlePoint extends SingleAnimationAbstract {
 
     generateNext(): void {
         this.next = new IdleNormal();
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, 1500);
     }

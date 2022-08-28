@@ -35,7 +35,7 @@ export class GrabbedFast extends GrabbedNormal {
     }
     generateNext(): void {
         this.next = new GrabbedSlow(this.isRight);
-        this.requestId = setTimeout(() => {
+        this.requestId = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, 500);
     }
@@ -48,7 +48,7 @@ export class GrabbedSlow extends GrabbedNormal {
     }
     generateNext(): void {
         this.next = new GrabbedNormal(this.isRight);
-        this.requestId = setTimeout(() => {
+        this.requestId = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, 350);
     }

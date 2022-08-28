@@ -42,7 +42,7 @@ export class ThrownFallBumpFloor implements Ianimation {
     }
     generateNext(): void {
         this.next = new IdleNormal(this.isRight);
-        this.requestId = setTimeout(() => {
+        this.requestId = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, 350);
     }

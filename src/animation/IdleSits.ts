@@ -14,7 +14,7 @@ export class IdleSits extends SingleAnimationAbstract {
 
     generateNext(): void {
         this.next = this.getNextAnim();
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, globalMainIdleWaitingTime);
     }
@@ -57,7 +57,7 @@ export class IdleSitsAndBored extends SingleAnimationAbstract {
     }
     generateNext(): void {
         this.next = new IdleSits();
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, globalMainIdleWaitingTime);
     }
@@ -76,7 +76,7 @@ export class IdleSitsAndLookUp extends SingleAnimationAbstract {
     }
     generateNext(): void {
         this.next = new IdleSits();
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, globalMainIdleWaitingTime);
     }
@@ -101,7 +101,7 @@ export class IdleSitsAndSing extends SingleAnimationAbstract {
     }
     generateNext(): void {
         this.next = new IdleSits();
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, 8200);
     }
@@ -126,7 +126,7 @@ export class IdleSitsAndSticksTongue extends SingleAnimationAbstract {
     }
     generateNext(): void {
         this.next = new IdleSits();
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, 5000);
     }

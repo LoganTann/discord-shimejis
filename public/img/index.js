@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const app = document.getElementById("app");
     app.append(...toInsert);
 
-    setInterval(() => {
+    window.setInterval(() => {
         const animatedImages = document.querySelectorAll(".animated-image");
         animatedImages.forEach((animatedImage) => {
             const i = parseInt(animatedImage.dataset.i, 10);

@@ -41,7 +41,7 @@ export class ThrownFlyBumpFloor implements Ianimation {
 
         const frames = "19 18".split(" ");
         let i = 0;
-        this.intervalId = setInterval(() => {
+        this.intervalId = window.setInterval(() => {
             if (i < frames.length) {
                 this.mascot.canvas.setFrame(`shime${frames[i]}.png`);
                 i++;
@@ -59,7 +59,7 @@ export class ThrownFlyBumpFloor implements Ianimation {
     }
     generateNext(): void {
         this.next = new IdleNormal(this.isRight);
-        this.requestId = setTimeout(() => {
+        this.requestId = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, 1200);
     }

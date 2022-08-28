@@ -37,7 +37,7 @@ export class FramesManager {
 
     init(mascot: Mascot) {
         let i = 0;
-        this.intervalId = setInterval(() => {
+        this.intervalId = window.setInterval(() => {
             if (i < this.frames.length) {
                 mascot.canvas.setFrame(`shime${this.frames[i]}.png`);
                 i++;

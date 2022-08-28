@@ -22,7 +22,7 @@ export class IdleClimbHoriz extends SingleAnimationAbstract {
         } else {
             this.next = this;
         }
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             this.mascot.setAnimation(this.next!);
         }, 1000);
     }
@@ -51,7 +51,7 @@ export class IdleClimbMoveUp extends IdleClimbHoriz {
         } else {
             this.next = this;
         }
-        this.requestID = setTimeout(() => {
+        this.requestID = window.setTimeout(() => {
             if (Math.random() > 0.7) {
                 this.mascot.setAnimation(new ThrownFlyNormal(this.isRight));
                 this.mascot.setBehavior(
