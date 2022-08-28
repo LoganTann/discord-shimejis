@@ -10,16 +10,21 @@ export class GrabbedBehavior implements Ibehavior {
     clickOffset!: Point;
 
     lastPosition: Point;
+    lastDelta: Point;
     constructor(lastPosition: Point) {
         this.lastPosition = lastPosition;
+        this.lastDelta = { x: 0, y: 0 };
     }
 
     listener!: (e: PointerEvent) => void;
+    listenerLeave!: (e: PointerEvent) => void;
 
     init(mascot: Mascot): void {
         this.mascot = mascot;
         this.listener = this.handlePointerMove.bind(this);
+        this.listenerLeave = this.handleThrown.bind(this);
         this.mascot.container.addEventListener("pointermove", this.listener);
+        this.mascot.container.addEventListener("pointerup", this.listenerLeave);
         this.mascot.canvas.reversed = false;
         this.clickOffset = {
             x: this.lastPosition.x - this.mascot.canvas.position.x,
@@ -28,18 +33,27 @@ export class GrabbedBehavior implements Ibehavior {
     }
     destroy(): void {
         this.mascot.container.removeEventListener("pointermove", this.listener);
+        this.mascot.container.removeEventListener(
+            "pointerup",
+            this.listenerLeave
+        );
+    }
+
+    handleThrown(e: PointerEvent) {
+        this.makeThrown(e, this.lastDelta);
+        return;
     }
 
     handlePointerMove(e: PointerEvent) {
+        if (this.alreadyChangedBehavior) {
+            return;
+        }
         const delta = {
             x: e.clientX - this.lastPosition.x,
             y: e.clientY - this.lastPosition.y,
         };
-        if (e.pressure < 0.5) {
-            this.makeThrown(e, delta);
-            return;
-        }
         this.lastPosition = { x: e.clientX, y: e.clientY };
+        this.lastDelta = delta;
         this.useGrabbedAnimation(delta);
         this.mascot.canvas.position.x = e.clientX - this.clickOffset.x;
         this.mascot.canvas.position.y = e.clientY - this.clickOffset.y;

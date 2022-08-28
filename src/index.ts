@@ -9,19 +9,16 @@ import { Iplugin } from "./Iplugin";
 import { Mascot } from "./mascot/Mascot";
 import "./style.css";
 
-const Main: Iplugin = {
+export default class Main implements Iplugin {
+    mascotInstance?: Mascot;
+
     start() {
-        console.info("%c[shimejis]", "font-weight: bold", "Plugin started.");
-        new Mascot().start();
-    },
+        console.info("%c[shimejis]", "font-weight: bold", "Starting plugin...");
+        this.mascotInstance = new Mascot();
+        this.mascotInstance.start();
+    }
     stop() {
+        this.mascotInstance?.stop();
         console.info("%c[shimejis]", "font-weight: bold", "Plugin unloaded.");
-    },
-};
-
-// DOM only
-document.addEventListener("DOMContentLoaded", () => {
-    Main.start();
-});
-
-export default Main;
+    }
+}

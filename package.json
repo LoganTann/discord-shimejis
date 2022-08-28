@@ -1,15 +1,17 @@
 {
   "name": "discord-shimejis",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "bundlebd --development",
+    "build": "bundlebd",
+    "dev-demo": "vite",
+    "build-demo": "tsc && vite build"
   },
   "devDependencies": {
     "typescript": "^4.6.4",
-    "vite": "^3.0.7"
+    "vite": "^3.0.7",
+    "bundlebd": "^2.0.0"
   }
 }

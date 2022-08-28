@@ -13,7 +13,13 @@ export class Canvas {
     static async newInstance(images: ImageLoader, app: HTMLElement) {
         const instance = new Canvas(128, 128);
         instance.images = images;
+        console.info(
+            "%c[shimejis]",
+            "font-weight: bold",
+            "Downloading images..."
+        );
         await instance.images.load();
+        console.info("%c[shimejis]", "font-weight: bold", "images loaded...");
         app.appendChild(instance.canvas);
         instance.initContext();
         return instance;
@@ -24,6 +30,8 @@ export class Canvas {
         this.canvas.width = width;
         this.canvas.height = height;
         this.canvas.setAttribute("class", "ene-shimeji");
+        this.canvas.style.position = "absolute";
+        this.canvas.style.zIndex = "101";
         this.updatePosition();
     }
     private initContext() {

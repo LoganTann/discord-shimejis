@@ -1,3 +1,5 @@
+import { DiscordWindow } from "../environment/DiscordWindow";
+
 const frames = [
     "shime01.png",
     "shime1.png",
@@ -51,14 +53,24 @@ const frames = [
 
 export class ImageLoader {
     image: Record<string, HTMLImageElement> = {};
+    base: string = ".";
+    constructor() {
+        if (DiscordWindow.getInstance().isDiscord) {
+            this.base = "https://logantann.github.io/discord-shimejis/";
+        }
+    }
+
     async load() {
         const promises = frames.map((frame) => {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 const image = new Image();
                 image.onload = () => {
                     resolve(image);
                 };
-                image.src = `./img/${frame}`;
+                image.onerror = (e) => {
+                    reject(e);
+                };
+                image.src = `${this.base}/img/${frame}`;
                 this.image[frame] = image;
             });
         });

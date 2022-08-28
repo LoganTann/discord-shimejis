@@ -24,11 +24,13 @@ export class Rect implements Rectangle {
         this.bottom = top + height;
     }
     static fromElement(elem: HTMLElement): Rectangle {
+        const boundingClientRect = elem.getBoundingClientRect();
+
         return new Rect(
-            elem.offsetTop,
-            elem.offsetLeft,
-            elem.offsetWidth,
-            elem.offsetHeight
+            boundingClientRect.top,
+            boundingClientRect.left,
+            boundingClientRect.width,
+            boundingClientRect.height
         );
     }
 }

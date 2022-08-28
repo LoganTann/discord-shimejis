@@ -33,8 +33,8 @@
             </div>
             <!-- Shimeji will be inserted here -->
         </div>
-        <script type="module" src="/src/main.ts"></script>
-        <script>
+        <script type="module">
+            import Main from "/src/index.ts";
             document.addEventListener("DOMContentLoaded", () => {
                 document
                     .querySelector("section.title")
@@ -43,6 +43,8 @@
                             .querySelector("aside")
                             .classList.toggle("hidden");
                     });
+                const mainInstance = new Main();
+                mainInstance.start();
             });
         </script>
     </body>

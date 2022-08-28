@@ -4,6 +4,7 @@ import { ThrownFlyNormal } from "../animation/ThrownFly";
 import { Ibehavior } from "../behaviors/Ibehavior";
 import { ThrownBehavior } from "../behaviors/ThrownBehavior";
 import { Environment } from "../environment/environment";
+import { DiscordWindow } from "../environment/DiscordWindow";
 import { ImageLoader } from "../images/ImageLoader";
 import { Iplugin } from "../Iplugin";
 import { Canvas } from "./Canvas";
@@ -23,16 +24,25 @@ export class Mascot implements Iplugin {
         );
         this.environment.init(this);
         this.initMascotPosition();
-        (window as any).poisson = this.poissonMode.bind(this);
     }
-    stop() {}
-
-    initContainer() {
-        const app = document.getElementById("app");
-        if (!app) {
-            throw new Error("app element not found");
+    stop() {
+        DiscordWindow.getInstance().detachEasterEgg();
+        if (this.animation) {
+            this.animation.destroy();
         }
-        this.container = app;
+        if (this.behavior) {
+            this.behavior.destroy();
+        }
+        if (this.canvas?.canvas) {
+            this.container.removeChild(this.canvas.canvas);
+        }
+    }
+
+    private initContainer() {
+        this.container = DiscordWindow.getInstance().getApp();
+        DiscordWindow.getInstance().attachEasterEgg(
+            this.poissonMode.bind(this)
+        );
     }
     initMascotPosition() {
         this.canvas.position.x =
@@ -70,6 +80,7 @@ export class Mascot implements Iplugin {
         const { top, left, right, bottom } = this.environment.screenRects;
         const intialPos = { ...this.canvas.position };
         if (this.canvas.position.x < left - this.canvas.canvas.width * 0.5) {
+            console.log("x < left", left, this.canvas.canvas.width * 0.5);
             this.canvas.position.x = left - this.canvas.canvas.width * 0.5;
         } else if (
             this.canvas.position.x >
